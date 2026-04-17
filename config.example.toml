@@ -1,0 +1,31 @@
+# lightorrent example configuration.
+# Copy this file to config.toml and edit to suit your environment.
+# Every field below can also be overridden via the LIGHTORRENT_* env vars
+# listed in README.md — env vars take precedence over this file.
+
+# Required — where downloaded content goes.
+download_dir = "/data/downloads"
+
+# Torrent protocol listen port (TCP+UDP, peer connections).
+listen_port = 8080
+
+# Session state (session.json, .bitv bitfield files, used for fast resume).
+persistence_dir = "/data/session"
+
+# Embedded database: torrent metadata + cumulative upload/download stats.
+state_db_path = "/data/state.redb"
+
+# HTTP API (qBittorrent-compatible).
+api_bind_address = "0.0.0.0"
+api_port = 8181
+api_username = "admin"
+# Plaintext is accepted (hashed in-memory on startup, a warning is logged),
+# but in production prefer either:
+#   - a PHC-encoded Argon2id hash here (produced by `lightorrent hash-password <plain>`), or
+#   - leave this value alone and set LIGHTORRENT_API_PASSWORD_HASH at runtime.
+api_password = "adminadmin"
+
+# Optional: queue torrents to add at startup.
+# torrents = [
+#   "https://example.com/file.torrent",
+# ]

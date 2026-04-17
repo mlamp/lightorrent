@@ -1,0 +1,26 @@
+services:
+  lightorrent:
+    build: .
+    image: lightorrent:${LIGHTORRENT_TAG:-latest}
+    ports:
+      - "8080:8080"
+      - "8181:8181"
+    volumes:
+      - ./config.toml:/config/config.toml:ro
+      - downloads:/downloads
+      - state:/state
+    environment:
+      - LIGHTORRENT_DOWNLOAD_DIR=/downloads
+      - LIGHTORRENT_PERSISTENCE_DIR=/state/session
+      - LIGHTORRENT_STATE_DB_PATH=/state/state.redb
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8181/api/v2/app/buildInfo"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  downloads:
+  state:

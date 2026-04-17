@@ -1,0 +1,7 @@
+download_dir = "./test-data/dl"
+listen_port = 8080
+persistence_dir = "./test-data/session"
+state_db_path = "./test-data/state.redb"
+api_port = 8181
+api_username = "admin"
+api_password = "adminadmin"

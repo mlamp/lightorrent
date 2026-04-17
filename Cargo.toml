@@ -1,0 +1,42 @@
+[package]
+name = "lightorrent"
+version = "2026.4.1"
+edition = "2021"
+rust-version = "1.87"
+description = "Lightweight BitTorrent client with a qBittorrent-compatible API, for use as a Sonarr/Radarr backend."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/mlamp/lightorrent"
+homepage = "https://github.com/mlamp/lightorrent"
+readme = "README.md"
+keywords = ["bittorrent", "qbittorrent", "sonarr", "radarr", "torrent"]
+categories = ["network-programming", "command-line-utilities"]
+authors = ["mlamp"]
+publish = false
+
+[dependencies]
+magpie-bt = "0.1.1"
+magpie-bt-metainfo = "0.1.1"
+reqwest = { version = "0.12", features = ["rustls-tls"], default-features = false }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "sync", "time", "signal", "io-util"] }
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+tracing-appender = "0.2"
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+axum = { version = "0.7", features = ["multipart"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4"] }
+redb = "2"
+tokio-util = "0.7"
+argon2 = { version = "0.5", features = ["std"] }
+password-hash = { version = "0.5", features = ["std", "getrandom"] }
+
+[dev-dependencies]
+tempfile = "3"
+reqwest = { version = "0.12", features = ["cookies", "multipart", "json"] }
+
+# Crate-scoped (does not affect transitive deps).
+[lints.rust]
+warnings = "deny"

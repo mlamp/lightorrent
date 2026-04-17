@@ -1,0 +1,15 @@
+target/
+.gsd/
+.gsd-id
+.bg-shell/
+.claude/
+.agents/
+.pi/
+.mcp.json
+data/
+test-data/
+tests/
+torrent-stats.csv
+skills/
+skills-lock.json
+*.md

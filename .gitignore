@@ -1,0 +1,49 @@
+
+# ── GSD baseline (auto-generated) ──
+.gsd
+.gsd-id
+.bg-shell/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+dist/
+build/
+__pycache__/
+*.pyc
+.venv/
+venv/
+target/
+vendor/
+*.log
+coverage/
+.cache/
+tmp/
+
+# Local agent / workflow tooling
+.agents/
+.claude/
+.pi/
+skills/
+skills-lock.json
+.mcp.json
+
+# Runtime / test output
+data/
+torrent-stats.csv
+test-data/dl/
+test-data/state.redb
+test-data/session/*.bitv
+test-data/session/session.json
+
+# Local config (tracked example is config.example.toml)
+config.toml
