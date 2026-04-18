@@ -1,4 +1,4 @@
-FROM rust:1.94-bookworm AS builder
+FROM rust:1.95-trixie AS builder
 
 WORKDIR /build
 COPY Cargo.toml Cargo.lock build.rs ./
@@ -8,7 +8,7 @@ COPY .git/ .git/
 
 RUN cargo build --release
 
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl3 ca-certificates \
