@@ -655,25 +655,19 @@ async fn torrents_add(
                     }
                 }
             }
-            "torrents" => {
-                if !buf.is_empty() {
-                    torrent_files.push(buf);
-                }
+            "torrents" if !buf.is_empty() => {
+                torrent_files.push(buf);
             }
             "savepath" => {
                 if let Ok(text) = String::from_utf8(buf) {
                     savepath = Some(text);
                 }
             }
-            "paused" => {
-                if buf == b"true" {
-                    paused = true;
-                }
+            "paused" if buf == b"true" => {
+                paused = true;
             }
-            "stopped" => {
-                if buf == b"true" {
-                    paused = true;
-                }
+            "stopped" if buf == b"true" => {
+                paused = true;
             }
             "category" => {
                 if let Ok(text) = String::from_utf8(buf) {

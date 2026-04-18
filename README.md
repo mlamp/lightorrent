@@ -19,7 +19,7 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes and [TODO.md](TODO.md) for de
 
 ## Building
 
-Requires Rust 1.87+.
+Requires Rust 1.94+ (inherited from `magpie-bt`).
 
 ```sh
 cargo build --release

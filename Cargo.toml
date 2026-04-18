@@ -2,7 +2,7 @@
 name = "lightorrent"
 version = "2026.4.1"
 edition = "2021"
-rust-version = "1.87"
+rust-version = "1.94"
 description = "Lightweight BitTorrent client with a qBittorrent-compatible API, for use as a Sonarr/Radarr backend."
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/mlamp/lightorrent"
