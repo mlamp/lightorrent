@@ -15,20 +15,35 @@ env:
 
 jobs:
   test:
-    name: test (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
+    name: test (${{ matrix.label }})
+    runs-on: ${{ matrix.runs-on }}
+    container: ${{ matrix.container }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        include:
+          - label: ubuntu-stable
+            runs-on: ubuntu-latest
+            rust: stable
+          - label: macos-stable
+            runs-on: macos-latest
+            rust: stable
+          - label: ubuntu-msrv
+            runs-on: ubuntu-latest
+            rust: "1.94"
+          - label: debian-trixie
+            runs-on: ubuntu-latest
+            container: "rust:1.95-trixie"
     steps:
       - uses: actions/checkout@v6
-      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Rust toolchain (${{ matrix.rust }})
+        if: matrix.container == ''
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust }}
       - uses: Swatinem/rust-cache@v2
-      - name: Build
-        run: cargo build --all-targets --locked
-      - name: Test
-        run: cargo test --all-targets --locked
+      - run: cargo build --all-targets --locked
+      - run: cargo test --all-targets --locked
 
   fmt:
     name: rustfmt
@@ -51,21 +66,51 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo clippy --all-targets --locked -- -D warnings
 
-  msrv:
-    name: msrv (rust-version from Cargo.toml)
+  docker-smoke:
+    name: docker smoke
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Read MSRV
-        id: msrv
-        run: |
-          v=$(grep -E '^rust-version' Cargo.toml | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
-          echo "version=$v" >> "$GITHUB_OUTPUT"
-      - uses: dtolnay/rust-toolchain@master
+      - uses: docker/setup-buildx-action@v3
+      - name: Build image
+        uses: docker/build-push-action@v5
         with:
-          toolchain: ${{ steps.msrv.outputs.version }}
-      - uses: Swatinem/rust-cache@v2
-      - run: cargo check --all-targets --locked
+          context: .
+          load: true
+          tags: lightorrent:smoke
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: --version
+        run: docker run --rm lightorrent:smoke --version
+      - name: buildInfo endpoint responds
+        run: |
+          mkdir -p smoke
+          cat > smoke/config.toml <<'EOF'
+          download_dir = "/tmp/lo/dl"
+          persistence_dir = "/tmp/lo/sess"
+          state_db_path = "/tmp/lo/state.redb"
+          api_bind_address = "0.0.0.0"
+          api_port = 8181
+          api_username = "admin"
+          api_password = "adminadmin"
+          EOF
+          docker run --rm -d --name lo \
+            -p 8181:8181 \
+            -v "$PWD/smoke/config.toml:/config/config.toml:ro" \
+            lightorrent:smoke
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8181/api/v2/app/buildInfo > /tmp/buildinfo.json; then
+              echo "--- buildInfo response ---"
+              cat /tmp/buildinfo.json
+              docker stop lo > /dev/null
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "--- container logs ---"
+          docker logs lo
+          docker stop lo > /dev/null
+          exit 1
 
   audit:
     name: cargo audit
