@@ -736,7 +736,7 @@ dependencies = [
  "libc",
  "percent-encoding",
  "pin-project-lite",
- "socket2",
+ "socket2 0.6.3",
  "system-configuration",
  "tokio",
  "tower-service",
@@ -980,9 +980,9 @@ checksum = "112b39cec0b298b6c1999fee3e31427f74f676e4cb9879ed1a121b43661a4154"
 
 [[package]]
 name = "magpie-bt"
-version = "0.1.1"
+version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "75d8f8d580741cf1bfbcfc3a2bfdff8111a590e7855b8d08366f8d0693f25b52"
+checksum = "4f856f1f85c40d885146a32f096837e63792a2934e368f745040efc17ec6bdf1"
 dependencies = [
  "magpie-bt-bencode",
  "magpie-bt-core",
@@ -992,18 +992,18 @@ dependencies = [
 
 [[package]]
 name = "magpie-bt-bencode"
-version = "0.1.1"
+version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d35792d821e340a961dd9c19cb520f1972e474ebeb5a4f7cdd6fa9437665d979"
+checksum = "8aeac76f3229fe2bb78036cce1110b1e5924bd2b72da2c74449d1cc3e98d3bd2"
 dependencies = [
  "thiserror",
 ]
 
 [[package]]
 name = "magpie-bt-core"
-version = "0.1.1"
+version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "79c82efaef15a61016c02266be2aa20ca3a1477eab193688985cea00a0944302"
+checksum = "ecc8d7c72887aef9b7656457765e4b10f80095fd5fb56df7239df04017c3cc73"
 dependencies = [
  "bytes",
  "futures-util",
@@ -1012,6 +1012,7 @@ dependencies = [
  "magpie-bt-metainfo",
  "magpie-bt-wire",
  "reqwest",
+ "socket2 0.5.10",
  "thiserror",
  "tokio",
  "tokio-util",
@@ -1020,9 +1021,9 @@ dependencies = [
 
 [[package]]
 name = "magpie-bt-metainfo"
-version = "0.1.1"
+version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4d6b0bc7fb851be4b3b0c3af7eaeaa3c2dff5fcbddbf93efc55fc4b89bd1ce6a"
+checksum = "87779df048940fb447a243449727f9ee72afe234cda8a905403473dd59069709"
 dependencies = [
  "magpie-bt-bencode",
  "sha1",
@@ -1032,9 +1033,9 @@ dependencies = [
 
 [[package]]
 name = "magpie-bt-wire"
-version = "0.1.1"
+version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f06f7cd8304675daa1c5966c71e2a8d44b1c629ec4c99ae448050c7fdc0c2a32"
+checksum = "30eb7371bd2d91c78b5f54930cfee9f3929f3194ef2ca6b81cb8adcc3db0f94c"
 dependencies = [
  "bytes",
  "magpie-bt-bencode",
@@ -1296,7 +1297,7 @@ dependencies = [
  "quinn-udp",
  "rustc-hash",
  "rustls",
- "socket2",
+ "socket2 0.6.3",
  "thiserror",
  "tokio",
  "tracing",
@@ -1333,7 +1334,7 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2",
+ "socket2 0.6.3",
  "tracing",
  "windows-sys 0.60.2",
 ]
@@ -1727,6 +1728,16 @@ checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
 
 [[package]]
 name = "socket2"
+version = "0.5.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e22376abed350d73dd1cd119b57ffccad95b4e585a7cda43e286245ce23c0678"
+dependencies = [
+ "libc",
+ "windows-sys 0.52.0",
+]
+
+[[package]]
+name = "socket2"
 version = "0.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3a766e1110788c36f4fa1c2b71b387a7815aa65f88ce0229841826633d93723e"
@@ -1926,7 +1937,7 @@ dependencies = [
  "mio",
  "pin-project-lite",
  "signal-hook-registry",
- "socket2",
+ "socket2 0.6.3",
  "tokio-macros",
  "windows-sys 0.61.2",
 ]
