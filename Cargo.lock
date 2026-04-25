@@ -992,9 +992,9 @@ dependencies = [
 
 [[package]]
 name = "magpie-bt-bencode"
-version = "0.1.1"
+version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d35792d821e340a961dd9c19cb520f1972e474ebeb5a4f7cdd6fa9437665d979"
+checksum = "8aeac76f3229fe2bb78036cce1110b1e5924bd2b72da2c74449d1cc3e98d3bd2"
 dependencies = [
  "thiserror",
 ]
@@ -1020,9 +1020,9 @@ dependencies = [
 
 [[package]]
 name = "magpie-bt-metainfo"
-version = "0.1.1"
+version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4d6b0bc7fb851be4b3b0c3af7eaeaa3c2dff5fcbddbf93efc55fc4b89bd1ce6a"
+checksum = "87779df048940fb447a243449727f9ee72afe234cda8a905403473dd59069709"
 dependencies = [
  "magpie-bt-bencode",
  "sha1",
